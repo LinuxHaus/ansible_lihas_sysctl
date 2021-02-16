@@ -1,8 +1,11 @@
 ---
-- name: "sysctl {{ sysctl.name }}"
+- debug:
+    var: sysctl
+    verbosity: 1
+- name: "sysctl {{ sysctl.key }}"
   sysctl:
-    name: {{ sysctl.value.ctl }}
-    sysctl_file: /etc/sysctl.d/{{ sysctl.name }}
+    name: "{{ sysctl.value.ctl }}"
+    sysctl_file: "/etc/sysctl.d/{{ sysctl.key }}.conf"
     value: "{{ sysctl.value.value }}"
     sysctl_set: yes
     state: present
