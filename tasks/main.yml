@@ -1,8 +1,13 @@
 ---
+- name: include lihas_common
+  include_role:
+    name: lihas_common
+  when: lihas_common_done is not defined
 - name: include variables
   include_role:
     name: lihas_variables
   when: configspaces is not defined
+
 - name: combine sysctls, init
   set_fact:
     lihas_sysctls: {}
@@ -21,4 +26,4 @@
 - name: mark lihas_sysctl done
   set_fact:
     lihas_sysctl_done: true
----
+...
