@@ -10,11 +10,9 @@
 - name: combine sysctls, init
   set_fact:
     lihas_sysctls: {}
-    cacheable: no
 - name: combine sysctls, expand with configspaces
   set_fact:
     lihas_sysctls: "{{ lihas_sysctls | combine(hostvars[inventory_hostname][item]['config']['sysctl'] | default({})) }}"
-    cacheable: no
   loop: "{{ configspaces }}"
 - debug:
     var: lihas_sysctls
