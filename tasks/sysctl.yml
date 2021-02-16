@@ -1,0 +1,10 @@
+---
+- name: "sysctl {{ sysctl.name }}"
+  sysctl:
+    name: {{ sysctl.value.ctl }}
+    sysctl_file: /etc/sysctl.d/{{ sysctl.name }}
+    value: "{{ sysctl.value.value }}"
+    sysctl_set: yes
+    state: present
+    reload: yes
+...

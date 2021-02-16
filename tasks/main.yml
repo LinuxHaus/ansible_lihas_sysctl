@@ -1,0 +1,24 @@
+---
+- name: include variables
+  include_role:
+    name: lihas_variables
+  when: configspaces is not defined
+- name: combine sysctls, init
+  set_fact:
+    lihas_sysctls: {}
+- name: combine sysctls, expand with configspaces
+  set_fact:
+    lihas_sysctls: "{{ lihas_sysctls | combine(hostvars[inventory_hostname][item]['config']['sysctl'] | default({})) }}"
+    cacheable: no
+  loop: "{{ configspaces }}"
+- debug:
+    var: lihas_sysctls
+    verbosity: 1
+- name: include sysctl
+  include: sysctl.yml
+  loop: lihas_sysctls
+  loop_var: sysctl
+- name: mark lihas_sysctl done
+  set_fact:
+    lihas_sysctl_done: true
+---
