@@ -20,7 +20,7 @@ Role Variables
 
 Dictionaries with random name and entries `ctl` and `value`
 ### %.config.sysctl.SYSCTLSHORT.ctl
-SYSCTLSHORT is just any identifiert, possibly giving a hint what we talk aboit
+SYSCTLSHORT is just any identifiert, possibly giving a hint what we talk about
 The name of the sysctl, e.g. net.ipv4.ip_forwarding
 ### %.config.sysctl.SYSCTLSHORT.value: 1
 The value to set, e.g. 1

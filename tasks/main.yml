@@ -14,11 +14,12 @@
   set_fact:
     lihas_sysctls: "{{ lihas_sysctls | combine(hostvars[inventory_hostname][item]['config']['sysctl'] | default({})) }}"
   loop: "{{ configspaces }}"
-- debug:
+- name: debug lihas_sysctls
+  debug:
     var: lihas_sysctls
     verbosity: 1
 - name: include sysctl
-  include: sysctl.yml
+  include_tasks: sysctl.yml
   loop: "{{ lihas_sysctls | dict2items() }}"
   loop_control:
     loop_var: sysctl
