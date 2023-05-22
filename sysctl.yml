@@ -1,5 +1,6 @@
 ---
-- hosts: '*'
+- name: Run role lihas_sysctl
+  hosts: '*'
   roles:
     - lihas_sysctl
 ...

@@ -1,25 +1,25 @@
 ---
-- name: mark lihas_sysctl done
-  set_fact:
+- name: Mark lihas_sysctl done
+  ansible.builtin.set_fact:
     lihas_sysctl_done: true
-- name: include variables
-  include_role:
+- name: Include variables
+  ansible.builtin.include_role:
     name: lihas_variables
   when: configspaces is not defined
 
-- name: combine sysctls, init
-  set_fact:
+- name: Combine sysctls, init
+  ansible.builtin.set_fact:
     lihas_sysctls: {}
-- name: combine sysctls, expand with configspaces
-  set_fact:
+- name: Combine sysctls, expand with configspaces
+  ansible.builtin.set_fact:
     lihas_sysctls: "{{ lihas_sysctls | combine(hostvars[inventory_hostname][item]['config']['sysctl'] | default({})) }}"
   loop: "{{ configspaces }}"
-- name: debug lihas_sysctls
-  debug:
+- name: Debug lihas_sysctls
+  ansible.builtin.debug:
     var: lihas_sysctls
     verbosity: 1
-- name: include sysctl
-  include_tasks: sysctl.yml
+- name: Include sysctl
+  ansible.builtin.include_tasks: sysctl.yml
   loop: "{{ lihas_sysctls | dict2items() }}"
   loop_control:
     loop_var: sysctl

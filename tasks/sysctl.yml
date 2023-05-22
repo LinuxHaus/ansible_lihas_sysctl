@@ -1,10 +1,10 @@
 ---
-- name: debug sysctl
-  debug:
+- name: Debug sysctl
+  ansible.builtin.debug:
     var: sysctl
     verbosity: 1
-- name: "sysctl {{ sysctl.key }}"
-  sysctl:
+- name: "Set sysctl {{ sysctl.key }}"
+  ansible.posix.sysctl:
     name: "{{ sysctl.value.ctl }}"
     sysctl_file: "/etc/sysctl.d/{{ sysctl.key }}.conf"
     value: "{{ sysctl.value.value }}"
